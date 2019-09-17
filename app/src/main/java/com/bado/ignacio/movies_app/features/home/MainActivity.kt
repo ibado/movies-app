@@ -1,11 +1,11 @@
 package com.bado.ignacio.movies_app.features.home
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.support.v7.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.widget.ImageView
 import com.bado.ignacio.movies_app.BuildConfig
@@ -32,19 +32,31 @@ class MainActivity : AppCompatActivity() {
 
         // populars
         val popularRecyclerView: RecyclerView = findViewById(R.id.rv_popular)
-        popularRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        popularRecyclerView.layoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.HORIZONTAL,
+            false
+        )
         val popularAdapter = createMovieAdapter()
         popularRecyclerView.adapter = popularAdapter
 
         // upcoming
         val upcomingRecyclerView: RecyclerView = findViewById(R.id.rv_upcoming)
-        upcomingRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        upcomingRecyclerView.layoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.HORIZONTAL,
+            false
+        )
         val upcomingAdapter = createMovieAdapter()
         upcomingRecyclerView.adapter = upcomingAdapter
 
         // top rated
         val topRatedRecyclerView: RecyclerView = findViewById(R.id.rv_top_rated)
-        topRatedRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        topRatedRecyclerView.layoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.HORIZONTAL,
+            false
+        )
         val topRatedAdapter = createMovieAdapter()
         topRatedRecyclerView.adapter = topRatedAdapter
 

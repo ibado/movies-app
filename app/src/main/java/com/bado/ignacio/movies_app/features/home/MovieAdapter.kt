@@ -1,6 +1,6 @@
 package com.bado.ignacio.movies_app.features.home
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import com.bado.ignacio.movies_app.R
 import com.bado.ignacio.movies_app.data.Movie
 import com.bado.ignacio.movies_app.features.ImageLoader
 
-class MovieAdapter(private val dataSet: MutableList<Movie>, private val imageLoader: ImageLoader) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(private val dataSet: MutableList<Movie>, private val imageLoader: ImageLoader) : androidx.recyclerview.widget.RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): MovieViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.movie_item, viewGroup, false)
