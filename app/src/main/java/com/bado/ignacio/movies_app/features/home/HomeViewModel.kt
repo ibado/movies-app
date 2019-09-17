@@ -1,12 +1,8 @@
 package com.bado.ignacio.movies_app.features.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.bado.ignacio.movies_app.data.Movie
 import com.bado.ignacio.movies_app.data.MoviesDataSource
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -28,14 +24,14 @@ class HomeViewModel(private val movieRepository: MoviesDataSource) : ViewModel()
     }
 
     private fun fetchPopular() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val popularMovies = async { movieRepository.getPopular(1) }
             _populars.postValue(popularMovies.await())
         }
     }
 
     private fun fetchTopRated() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val topRated = async { movieRepository.getTopRated(1) }
             val result = topRated.await()
             _topRated.postValue(result)
@@ -43,7 +39,7 @@ class HomeViewModel(private val movieRepository: MoviesDataSource) : ViewModel()
     }
 
     private fun fetchUpcoming() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val upcoming = async { movieRepository.getUpcoming(1) }
             val result = upcoming.await()
             _upcoming.postValue(result)
