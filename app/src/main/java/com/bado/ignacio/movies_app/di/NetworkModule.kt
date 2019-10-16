@@ -7,17 +7,19 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
 @Module
-class RetrofitModule {
+class NetworkModule {
 
     @Provides
+    @Singleton
     fun provideOkHTTPClient(): OkHttpClient {
         return OkHttpClient.Builder().addInterceptor { chain ->
             var request = chain.request()
             val url = request.url()
                 .newBuilder()
-                .addQueryParameter("api_key", "ca6251fbfb38940310977ff827b8dc3e")
+                .addQueryParameter("api_key", BuildConfig.API_KEY)
                 .build()
             request = request.newBuilder().url(url).build()
             chain.proceed(request)
@@ -25,6 +27,7 @@ class RetrofitModule {
     }
 
     @Provides
+    @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
@@ -34,6 +37,7 @@ class RetrofitModule {
     }
 
     @Provides
+    @Singleton
     fun providesMovieService(retrofit: Retrofit): MovieService {
         return retrofit.create(MovieService::class.java)
     }

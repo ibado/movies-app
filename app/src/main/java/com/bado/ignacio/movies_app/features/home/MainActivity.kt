@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
 import android.widget.ImageView
 import com.bado.ignacio.movies_app.BuildConfig
 import com.bado.ignacio.movies_app.R
+import com.bado.ignacio.movies_app.data.Movie
 import com.bado.ignacio.movies_app.data.MoviesRepository
 import com.bado.ignacio.movies_app.features.ImageLoader
 import com.bumptech.glide.Glide
@@ -30,60 +30,43 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // populars
-        val popularRecyclerView: RecyclerView = findViewById(R.id.rv_popular)
-        popularRecyclerView.layoutManager = LinearLayoutManager(
-            this,
-            RecyclerView.HORIZONTAL,
-            false
-        )
-        val popularAdapter = createMovieAdapter()
-        popularRecyclerView.adapter = popularAdapter
+        val populars = findViewById<RecyclerView>(R.id.rv_popular)
+        val upcoming = findViewById<RecyclerView>(R.id.rv_upcoming)
+        val topRated = findViewById<RecyclerView>(R.id.rv_top_rated)
 
-        // upcoming
-        val upcomingRecyclerView: RecyclerView = findViewById(R.id.rv_upcoming)
-        upcomingRecyclerView.layoutManager = LinearLayoutManager(
-            this,
-            RecyclerView.HORIZONTAL,
-            false
-        )
-        val upcomingAdapter = createMovieAdapter()
-        upcomingRecyclerView.adapter = upcomingAdapter
-
-        // top rated
-        val topRatedRecyclerView: RecyclerView = findViewById(R.id.rv_top_rated)
-        topRatedRecyclerView.layoutManager = LinearLayoutManager(
-            this,
-            RecyclerView.HORIZONTAL,
-            false
-        )
-        val topRatedAdapter = createMovieAdapter()
-        topRatedRecyclerView.adapter = topRatedAdapter
+        configureRecyclerView(populars)
+        configureRecyclerView(upcoming)
+        configureRecyclerView(topRated)
 
         viewModel.populars.observe(this, Observer {
-            Log.d("ibado", "populars: $it")
-            if (it != null) {
-                popularAdapter.addItems(it)
-                popularAdapter.notifyDataSetChanged()
-            }
+            populateMovies(populars.adapter as MovieAdapter, it)
         })
 
         viewModel.upcoming.observe(this, Observer {
-            Log.d("ibado", "upcoming: $it")
-            if (it != null) {
-                upcomingAdapter.addItems(it)
-                upcomingAdapter.notifyDataSetChanged()
-            }
+            populateMovies(upcoming.adapter as MovieAdapter, it)
         })
 
         viewModel.topRated.observe(this, Observer {
-            Log.d("ibado", "topRated: $it")
-            if (it != null) {
-                topRatedAdapter.addItems(it)
-                topRatedAdapter.notifyDataSetChanged()
-            }
+            populateMovies(topRated.adapter as MovieAdapter, it)
         })
 
+    }
+
+    private fun populateMovies(adapter: MovieAdapter, movies: List<Movie>?) {
+        if (movies != null) {
+            adapter.addItems(movies)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun configureRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.layoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.HORIZONTAL,
+            false
+        )
+        val adapter = createMovieAdapter()
+        recyclerView.adapter = adapter
     }
 
     private fun createMovieAdapter(): MovieAdapter {

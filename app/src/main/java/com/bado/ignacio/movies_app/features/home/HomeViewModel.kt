@@ -1,6 +1,10 @@
 package com.bado.ignacio.movies_app.features.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.bado.ignacio.movies_app.data.Movie
 import com.bado.ignacio.movies_app.data.MoviesDataSource
 import kotlinx.coroutines.Dispatchers
