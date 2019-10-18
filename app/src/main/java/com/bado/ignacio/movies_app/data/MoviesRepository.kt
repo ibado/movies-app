@@ -1,24 +1,13 @@
 package com.bado.ignacio.movies_app.data
 
-import com.bado.ignacio.movies_app.data.local.MoviesLocalDataSource
-import com.bado.ignacio.movies_app.data.remote.MovieService
-import com.bado.ignacio.movies_app.data.remote.MoviesRemoteDataSource
-import com.bado.ignacio.movies_app.di.DaggerMovieAppComponent
-import com.bado.ignacio.movies_app.di.NetworkModule
+import com.bado.ignacio.movies_app.di.ApplicationModule.MoviesLocalDataSource
+import com.bado.ignacio.movies_app.di.ApplicationModule.MoviesRemoteDataSource
+import javax.inject.Inject
 
-
-class MoviesRepository : MoviesDataSource {
-
-    private val local: MoviesDataSource = MoviesLocalDataSource()
-    private val remote: MoviesDataSource by lazy {
-
-        val movieService: MovieService =
-            DaggerMovieAppComponent
-                .builder()
-                .build()
-                .getMovieService()
-        MoviesRemoteDataSource(movieService)
-    }
+class MoviesRepository @Inject constructor(
+    @MoviesLocalDataSource private val local: MoviesDataSource,
+    @MoviesRemoteDataSource private val remote: MoviesDataSource
+) : MoviesDataSource {
 
     override suspend fun getTopRated(page: Int): List<Movie> {
         return remote.getTopRated(page)

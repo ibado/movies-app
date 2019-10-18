@@ -7,13 +7,12 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+object NetworkModule {
 
     @Provides
-    @Singleton
+    @JvmStatic
     fun provideOkHTTPClient(): OkHttpClient {
         return OkHttpClient.Builder().addInterceptor { chain ->
             var request = chain.request()
@@ -27,7 +26,7 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
+    @JvmStatic
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
@@ -37,7 +36,7 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
+    @JvmStatic
     fun providesMovieService(retrofit: Retrofit): MovieService {
         return retrofit.create(MovieService::class.java)
     }

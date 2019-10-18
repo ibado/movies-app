@@ -1,4 +1,4 @@
-package com.bado.ignacio.movies_app.features.home
+package com.bado.ignacio.movies_app.presentation.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +10,7 @@ import com.bado.ignacio.movies_app.data.MoviesDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class HomeViewModel(private val movieRepository: MoviesDataSource) : ViewModel() {
 
@@ -50,12 +51,10 @@ class HomeViewModel(private val movieRepository: MoviesDataSource) : ViewModel()
         }
     }
 
-    companion object {
-        @Suppress("UNCHECKED_CAST")
-        class Factory(private val movieRepository: MoviesDataSource) : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeViewModel(movieRepository) as T
-            }
+    @Suppress("UNCHECKED_CAST")
+    class Factory @Inject constructor(private val movieRepository: MoviesDataSource) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return HomeViewModel(movieRepository) as T
         }
     }
 }

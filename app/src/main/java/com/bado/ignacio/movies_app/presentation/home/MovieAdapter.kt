@@ -1,4 +1,4 @@
-package com.bado.ignacio.movies_app.features.home
+package com.bado.ignacio.movies_app.presentation.home
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bado.ignacio.movies_app.R
 import com.bado.ignacio.movies_app.data.Movie
-import com.bado.ignacio.movies_app.features.ImageLoader
+import com.bado.ignacio.movies_app.presentation.ImageLoader
 
 class MovieAdapter(private val dataSet: MutableList<Movie>, private val imageLoader: ImageLoader)
     : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -38,7 +38,7 @@ class MovieAdapter(private val dataSet: MutableList<Movie>, private val imageLoa
 
         fun bind(item: Movie) {
             title.text = item.title
-            item.posterPath?.let { imageLoader.loadImage(it, image) }
+            item.posterPath?.let { imageLoader.loadImage(it, image, itemView.context) }
         }
 
     }

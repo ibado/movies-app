@@ -2,8 +2,11 @@ package com.bado.ignacio.movies_app.data.remote
 
 import com.bado.ignacio.movies_app.data.Movie
 import com.bado.ignacio.movies_app.data.MoviesDataSource
+import javax.inject.Inject
 
-class MoviesRemoteDataSource(private val movieService: MovieService) : MoviesDataSource {
+class MoviesRemoteDataSource @Inject constructor(
+    private val movieService: MovieService
+) : MoviesDataSource {
 
     override suspend fun getTopRated(page: Int): List<Movie> {
         val topRated = movieService.getTopRated(page).execute().body()
