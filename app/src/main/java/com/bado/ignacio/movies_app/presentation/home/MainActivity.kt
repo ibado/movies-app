@@ -1,5 +1,6 @@
 package com.bado.ignacio.movies_app.presentation.home
 
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import androidx.activity.viewModels
 import com.bado.ignacio.movies_app.R
 import com.bado.ignacio.movies_app.data.Movie
 import com.bado.ignacio.movies_app.injector
+import com.bado.ignacio.movies_app.presentation.detail.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,6 +65,9 @@ class MainActivity : AppCompatActivity() {
         return MovieAdapter(
             ArrayList(),
             injector.getImageLoader()
-        )
+        ) {
+            val intent = Intent(this, MovieDetailActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

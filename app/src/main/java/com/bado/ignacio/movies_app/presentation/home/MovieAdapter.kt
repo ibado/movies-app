@@ -10,8 +10,11 @@ import com.bado.ignacio.movies_app.R
 import com.bado.ignacio.movies_app.data.Movie
 import com.bado.ignacio.movies_app.presentation.ImageLoader
 
-class MovieAdapter(private val dataSet: MutableList<Movie>, private val imageLoader: ImageLoader)
-    : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(
+    private val dataSet: MutableList<Movie>,
+    private val imageLoader: ImageLoader,
+    private val clickListener: (Movie) -> Unit
+) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): MovieViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.movie_item, viewGroup, false)
@@ -35,6 +38,10 @@ class MovieAdapter(private val dataSet: MutableList<Movie>, private val imageLoa
 
         private val image by lazy { itemView.findViewById<ImageView>(R.id.image_movie_item) }
         private val title by lazy { itemView.findViewById<TextView>(R.id.title_movie_item) }
+
+        init {
+            itemView.setOnClickListener { clickListener(dataSet[adapterPosition]) }
+        }
 
         fun bind(item: Movie) {
             title.text = item.title

@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.bado.ignacio.movies_app.data.Movie
 import com.bado.ignacio.movies_app.data.MoviesDataSource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,24 +29,22 @@ class HomeViewModel(private val movieRepository: MoviesDataSource) : ViewModel()
 
     private fun fetchPopular() {
         viewModelScope.launch(Dispatchers.IO) {
-            val popularMovies = async { movieRepository.getPopular(1) }
-            _populars.postValue(popularMovies.await())
+            val populars = movieRepository.getPopular(1)
+            _populars.postValue(populars)
         }
     }
 
     private fun fetchTopRated() {
         viewModelScope.launch(Dispatchers.IO) {
-            val topRated = async { movieRepository.getTopRated(1) }
-            val result = topRated.await()
-            _topRated.postValue(result)
+            val topRated = movieRepository.getTopRated(1)
+            _topRated.postValue(topRated)
         }
     }
 
     private fun fetchUpcoming() {
         viewModelScope.launch(Dispatchers.IO) {
-            val upcoming = async { movieRepository.getUpcoming(1) }
-            val result = upcoming.await()
-            _upcoming.postValue(result)
+            val upcoming = movieRepository.getUpcoming(1)
+            _upcoming.postValue(upcoming)
         }
     }
 
