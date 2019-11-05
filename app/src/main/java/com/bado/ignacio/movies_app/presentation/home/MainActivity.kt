@@ -14,6 +14,10 @@ import com.bado.ignacio.movies_app.presentation.detail.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val MOVIE_EXTRA = "movie_extra"
+    }
+
     private val viewModel: HomeViewModel by viewModels {
         injector.getHomeViewModelFactory()
     }
@@ -67,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             injector.getImageLoader()
         ) {
             val intent = Intent(this, MovieDetailActivity::class.java)
+            intent.putExtra(MOVIE_EXTRA, it)
             startActivity(intent)
         }
     }

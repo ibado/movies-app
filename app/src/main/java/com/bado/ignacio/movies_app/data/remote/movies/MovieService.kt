@@ -1,4 +1,4 @@
-package com.bado.ignacio.movies_app.data.remote
+package com.bado.ignacio.movies_app.data.remote.movies
 
 import retrofit2.Call
 import retrofit2.http.GET

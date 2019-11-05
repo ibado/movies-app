@@ -2,6 +2,7 @@ package com.bado.ignacio.movies_app.di
 
 import android.content.Context
 import com.bado.ignacio.movies_app.presentation.ImageLoader
+import com.bado.ignacio.movies_app.presentation.detail.MovieDetailViewModel
 import com.bado.ignacio.movies_app.presentation.home.HomeViewModel
 import dagger.BindsInstance
 import dagger.Component
@@ -17,6 +18,8 @@ interface ApplicationComponent {
     }
 
     fun getHomeViewModelFactory(): HomeViewModel.Factory
+
+    fun getMovieDetailViewModelFactory(): MovieDetailViewModel.Factory
 
     fun getImageLoader(): ImageLoader
 }

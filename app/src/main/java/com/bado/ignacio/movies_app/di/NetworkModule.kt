@@ -1,7 +1,8 @@
 package com.bado.ignacio.movies_app.di
 
 import com.bado.ignacio.movies_app.BuildConfig
-import com.bado.ignacio.movies_app.data.remote.MovieService
+import com.bado.ignacio.movies_app.data.remote.movies.MovieService
+import com.bado.ignacio.movies_app.data.remote.videos.VideoService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -39,5 +40,11 @@ object NetworkModule {
     @JvmStatic
     fun providesMovieService(retrofit: Retrofit): MovieService {
         return retrofit.create(MovieService::class.java)
+    }
+
+    @Provides
+    @JvmStatic
+    fun provideVideoDataSource(retrofit: Retrofit): VideoService {
+        return retrofit.create(VideoService::class.java)
     }
 }
