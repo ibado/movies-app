@@ -55,6 +55,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
         return when (item?.itemId) {
             android.R.id.home -> { onBackPressed(); true }
             else -> super.onOptionsItemSelected(item)
